@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <!-- Read this before publishing packages to chocolatey.org: https://github.com/chocolatey/chocolatey/wiki/CreatePackages -->
+    <id>syft</id>
+    <title>Syft</title>
+    <version>0.34.0</version>
+    <authors>Anchore Inc</authors>
+    <owners>Marcin Bojko</owners>
+    <summary>A CLI tool and Go library for generating a Software Bill of Materials (SBOM) from container images and filesystems.</summary>
+    <description>
+# Syft
+
+## Description
+
+A CLI tool and Go library for generating a Software Bill of Materials (SBOM) from container images and filesystems [https://github.com/anchore/syft](https://github.com/anchore/syft)
+
+## Features
+
+- Install and uninstall via Chocolatey
+- Supports 64-bit version
+
+## Changelog
+
+### 2022-01-05 Build 0.34.0
+
+- version 0.34.0
+
+## Usage
+
+### Direct
+
+```cmd
+choco install syft -y
+```
+
+### YAML (Foreman, puppetlabs/chocolatey module)
+
+```yaml
+syft:
+  ensure: latest
+  provider: chocolatey
+```
+
+or
+
+```yaml
+syft:
+  ensure: latest
+```
+    </description>
+    <projectUrl>https://github.com/anchore/syft</projectUrl>
+    <packageSourceUrl>https://github.com/marcinbojko/syft</packageSourceUrl>
+    <docsUrl>https://github.com/anchore/syft</docsUrl>
+    <iconUrl>https://user-images.githubusercontent.com/5199289/136844524-1527b09f-c5cb-4aa9-be54-5aa92a6086c1.png</iconUrl>
+    <bugTrackerUrl>https://github.com/anchore/syft/issues</bugTrackerUrl>
+    <tags>syft docker image bom admin</tags>
+    <copyright>Anchore Inc</copyright>
+    <licenseUrl>https://github.com/anchore/syft/blob/main/LICENSE</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <releaseNotes>https://github.com/anchore/syft/releases</releaseNotes>
+    <dependencies>
+    </dependencies>
+  </metadata>
+    <files>
+      <file src="tools\**" target="tools" />
+    </files>
+</package>

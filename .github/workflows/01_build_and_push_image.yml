@@ -1,0 +1,34 @@
+name: build_image
+on:
+  push:
+    branches:
+      - 'master'
+      - 'main'
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Choco pack
+        uses: crazy-max/ghaction-chocolatey@v1
+        with:
+          args: pack
+      -
+        name: Choco install
+        uses: crazy-max/ghaction-chocolatey@v1
+        with:
+          args: install syft -y -s .
+      -
+        name: Choco list
+        uses: crazy-max/ghaction-chocolatey@v1
+        with:
+          args: list -l
+      -
+        name: Choco push
+        uses: crazy-max/ghaction-chocolatey@v1
+        with:
+          args: push --source https://push.chocolatey.org/ -k=${{ secrets.CHOCO_API_KEY }} -v
+
