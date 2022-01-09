@@ -1,4 +1,4 @@
-name: build_image
+name: build_and_push_image
 on:
   push:
     branches:
@@ -22,13 +22,12 @@ jobs:
         with:
           args: install syft -y -s .
       -
-        name: Choco list
-        uses: crazy-max/ghaction-chocolatey@v1
-        with:
-          args: list -l
+        name: Syft run
+        run: |
+          syft . -v
+        shell: powershell
       -
         name: Choco push
         uses: crazy-max/ghaction-chocolatey@v1
         with:
           args: push --source https://push.chocolatey.org/ -k=${{ secrets.CHOCO_API_KEY }} -v
-
