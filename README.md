@@ -5,6 +5,7 @@
   - [Description](#description)
   - [Features](#features)
   - [Changelog](#changelog)
+    - [-02-26 Build 0.38.0](#-02-26-build-0380)
     - [-02-10 Build 0.37.10](#-02-10-build-03710)
     - [-01-31 Build 0.36.0](#-01-31-build-0360)
     - [-01-09 Build 0.35.0](#-01-09-build-0350)
@@ -24,6 +25,10 @@ A CLI tool and Go library for generating a Software Bill of Materials (SBOM) fro
 - Supports 64-bit version
 
 ## Changelog
+
+### 2022-02-26 Build 0.38.0
+
+- version 0.38.0
 
 ### 2022-02-10 Build 0.37.10
 
