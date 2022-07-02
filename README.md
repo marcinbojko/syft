@@ -1,3 +1,4 @@
+
 # Syft
 <!-- TOC -->
 
@@ -5,6 +6,7 @@
   - [Description](#description)
   - [Features](#features)
   - [Changelog](#changelog)
+    - [-07-02 Build 0.49.0](#-07-02-build-0490)
     - [-06-05 Build 0.46.3](#-06-05-build-0463)
     - [-05-21 Build 0.46.1](#-05-21-build-0461)
     - [-05-14 Build 0.46.0](#-05-14-build-0460)
@@ -32,6 +34,10 @@ A CLI tool and Go library for generating a Software Bill of Materials (SBOM) fro
 - Supports 64-bit version
 
 ## Changelog
+
+### 2022-07-02 Build 0.49.0
+
+- version 0.49.0
 
 ### 2022-06-05 Build 0.46.3
 
