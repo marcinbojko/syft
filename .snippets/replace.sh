@@ -26,7 +26,7 @@ case "${machine}" in
     *)          echo "UNKNOWN:${machine}"
 esac
 
-if [ -n "$version" ] || [ -n "$checksum" ]; then
+if [ -n "$version" ] && [ -n "$checksum64" ]; then
     echo "version and checksum are not empty"
     echo "$version"
     echo "$id"
@@ -36,5 +36,7 @@ if [ -n "$version" ] || [ -n "$checksum" ]; then
     "$sed_binary" -i "s|^\$version.*|\$version            = '$version'|g" "$powershell"
     "$sed_binary" -i "s|^\$checksum64.*|\$checksum64         = '$checksum64'|g" "$powershell"
 else
-    echo "version is empty"
+    echo "version or checksum is/are empty"
+    echo "version: $version"
+    echo "checksum: $checksum64"
 fi
