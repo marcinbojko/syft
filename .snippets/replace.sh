@@ -27,6 +27,9 @@ if [[ ! -f "$powershell" ]]; then
     exit 1
 fi
 
+git checkout test
+git pull
+
 echo -e "${GREEN}Extracting version and id from $file...${NC}"
 version=$($grep_command -oPm1 "(?<=<version>)[^<]+" "$file")
 id=$($grep_command -oPm1 "(?<=<id>)[^<]+" "$file")
