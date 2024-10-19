@@ -24,7 +24,7 @@ Consider buying me a coffee if you like my work. All donations are appreciated. 
 <!-- /TOC -->
 ## Description
 
-A CLI tool and Go library for generating a Software Bill of Materials (SBOM) from container images and filesystems [https://github.com/anchore/syft](https://github.com/anchore/syft)
+A command-line tool and Go library for generating a Software Bill of Materials (SBOM) from container images and filesystems [https://github.com/anchore/syft](https://github.com/anchore/syft)
 
 ## Features
 
