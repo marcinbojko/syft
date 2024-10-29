@@ -55,7 +55,7 @@ jobs:
 
       # Branch-Specific Steps
       - name: Push to Chocolatey on main or master
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || matrix.os == 'windows-2022'
+        if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') && matrix.os == 'windows-2022'
         uses: crazy-max/ghaction-chocolatey@v3
         with:
           args: push --source https://push.chocolatey.org/ -k=${{ secrets.CHOCO_API_KEY }}
