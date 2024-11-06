@@ -5,8 +5,8 @@
     <!-- Read this before publishing packages to chocolatey.org: https://github.com/chocolatey/chocolatey/wiki/CreatePackages -->
     <id>syft</id>
     <title>Syft</title>
-    <version>1.15.0</version>
-    <authors>Anchore Inc</authors>
+    <version>1.16.0</version>
+    <authors>Anhore Inc</authors>
     <owners>Marcin Bojko</owners>
     <summary>A CLI tool and Go library for generating a Software Bill of Materials (SBOM) from container images and filesystems.</summary>
     <description>
