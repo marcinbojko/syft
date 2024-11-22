@@ -7,7 +7,21 @@ on:
     branches: [main, master]
   workflow_dispatch: # Allows manual triggering
 
-permissions: read-all
+permissions:
+  contents: write
+  pull-requests: write
+  packages: write
+  actions: read
+  deployments: read
+  id-token: write
+  issues: write
+  discussions: read
+  pages: read
+  repository-projects: read
+  security-events: read
+  attestations: read # Added this
+  checks: write # Added this
+  statuses: write # Added
 
 jobs:
   build-and-push:
