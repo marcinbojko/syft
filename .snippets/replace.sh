@@ -79,6 +79,7 @@ if [ -n "$version" ] && [ -n "$checksum64" ]; then
 		echo "Tag already exists: $version"
 	else
 		# Create the tag
+		git checkout test
 		git add -A
 		git commit -m "Version ${version}"
 		git tag "$version"
