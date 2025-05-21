@@ -1,9 +1,9 @@
 ﻿$ErrorActionPreference = 'Stop';
 
 $packageName        = 'syft'
-$version            = '1.25.0'
+$version            = '1.25.1'
 $url64              = "https://github.com/anchore/syft/releases/download/v"+$version+"/syft_"+$version+"_windows_amd64.zip"
-$checksum64         = '794aaf8b5177172079ec8be84c910706f19ebb66352671fdbebf41e357fa6d8d'
+$checksum64         = '22e24ab95a119a09445bc60019aef6083719c6377dc5d4615e2a93175c502f43'
 $toolsDir           = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 
 $packageArgs = @{
