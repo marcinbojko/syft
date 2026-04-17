@@ -1,0 +1,87 @@
+---
+# Watches for new syft releases (non-prerelease).
+# On a new version: bumps syft.nuspec version, then delegates to .snippets/replace.sh
+# which verifies assets, updates chocolateyinstall.ps1, commits, and tags.
+# The push step triggers build_image.yml.
+#
+# REQUIRED SECRET: GH_PAT — Personal Access Token with 'repo' scope.
+# GITHUB_TOKEN cannot trigger downstream workflows on push.
+
+name: Syft Release Watcher
+
+on:
+  schedule:
+    - cron: "0 */6 * * *" # every 6 hours
+  workflow_dispatch: # checkov:skip=CKV_GHA_7:force_build is an intentional manual override
+    inputs:
+      force_build:
+        description: "Force build even if this syft version is already tagged"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  check-and-update:
+    name: Check for new syft release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout test branch
+        uses: actions/checkout@v6
+        with:
+          ref: test
+          fetch-depth: 0
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Detect new upstream release
+        id: detect
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FORCE_BUILD: ${{ inputs.force_build }}
+        run: |
+          RELEASE=$(curl -sf \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/anchore/syft/releases/latest")
+
+          if [ "$(echo "$RELEASE" | jq -r '.prerelease')" = "true" ]; then
+            echo "Latest release is a pre-release, skipping."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          VERSION=$(echo "$RELEASE" | jq -r '.tag_name | ltrimstr("v")')
+          echo "Latest syft version: ${VERSION}"
+
+          if git rev-parse --quiet --verify "${VERSION}" >/dev/null 2>&1 && [ "${FORCE_BUILD}" != "true" ]; then
+            echo "Tag ${VERSION} already exists, nothing to do."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+
+      - name: Bump version in syft.nuspec
+        if: steps.detect.outputs.skip != 'true'
+        run: |
+          sed -i "s|<version>[^<]*</version>|<version>${{ steps.detect.outputs.version }}</version>|" syft.nuspec
+
+      - name: Run replace.sh — verify assets, update ps1, commit and tag
+        if: steps.detect.outputs.skip != 'true'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          cd .snippets
+          bash replace.sh
+
+      - name: Push commit and tag
+        if: steps.detect.outputs.skip != 'true'
+        run: |
+          VERSION="${{ steps.detect.outputs.version }}"
+          git push origin HEAD:test
+          git push origin "${VERSION}"
+          echo "Pushed commit and tag ${VERSION} — build_image.yml will handle the rest."
