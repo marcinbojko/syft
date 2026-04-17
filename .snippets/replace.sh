@@ -36,7 +36,6 @@ if [[ ! -f "$powershell" ]]; then
 fi
 
 git checkout test
-git pull
 
 echo -e "${GREEN}Extracting version and id from $file...${NC}"
 version=$($grep_command -oPm1 "(?<=<version>)[^<]+" "$file")
@@ -75,17 +74,24 @@ if [ -n "$version" ] && [ -n "$checksum64" ]; then
 	"$sed_binary" -i "s|^\$checksum64.*|\$checksum64         = '$checksum64'|g" "$powershell"
 	echo "Updated $powershell with new version and checksum."
 	# Check if the tag exists
-	if git rev-parse --quiet --verify "$version" >/dev/null; then
-		echo "Tag already exists: $version"
+	if git rev-parse --quiet --verify "refs/tags/$version" >/dev/null 2>&1; then
+		if [ "${FORCE_BUILD}" = "true" ]; then
+			echo "Force build: recreating tag $version"
+			git tag -d "$version"
+			git push origin --delete "refs/tags/$version" 2>/dev/null || true
+			git checkout test
+			git add -A
+			git commit -m "Version ${version}"
+			git tag "$version"
+			echo "Tag recreated: $version"
+		else
+			echo "Tag already exists: $version"
+		fi
 	else
-		# Create the tag
 		git checkout test
 		git add -A
 		git commit -m "Version ${version}"
 		git tag "$version"
-		#git push origin "$version"
-		# Push the tag to the remote repository
-		#
 		echo "Tag created: $version"
 	fi
 
