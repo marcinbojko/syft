@@ -2,9 +2,7 @@ name: Build and Push Chocolatey Package
 # Start
 on:
   push:
-    branches: [main, master, test]
-    tags:
-      - "*.*.*"
+    branches: [main, master]
   pull_request:
     branches: [main, master]
   workflow_dispatch: # Allows manual triggering
