@@ -4,6 +4,7 @@
 ![Windows2016](https://img.shields.io/badge/Windows-2016-blue)
 ![Windows2019](https://img.shields.io/badge/Windows-2019-blue)
 ![Windows2022](https://img.shields.io/badge/Windows-2022-blue)
+![Windows2025](https://img.shields.io/badge/Windows-2025-blue)
 ![Windows10](https://img.shields.io/badge/Windows-10-lightblue)
 ![Windows11](https://img.shields.io/badge/Windows-11-lightblue)
 
